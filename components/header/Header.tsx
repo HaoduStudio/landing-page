@@ -19,7 +19,7 @@ import {
   useColorMode,
   useColorModeValue,
 } from "../ui/color-mode";
-import { Atom, Check, Download, HelpCircle, Languages, Moon, Sun } from "lucide-react";
+import { Atom, Check, Download, HelpCircle, Languages, Menu as MenuIcon, Moon, Sun } from "lucide-react";
 
 interface LanguageOption {
   code: string;
@@ -74,22 +74,36 @@ export function Header() {
         zIndex={10}
       >
         <Flex align="center" justify="space-between" gap={6}>
-          <HStack gap={3}>
-            <Text fontSize={{ base: "lg", md: "xl" }} fontWeight="extrabold">
+          <HStack gap={{ base: 2, md: 3 }}>
+            <Text 
+              fontSize={{ base: "md", sm: "lg", md: "xl" }} 
+              fontWeight="extrabold"
+              flexShrink={0}
+            >
               DailyNotes
             </Text>
             <HStack
               gap={1}
-              fontSize="sm"
-              display={{ base: "none", md: "flex" }}
+              fontSize={{ base: "xs", md: "sm" }}
+              display={{ base: "none", sm: "flex" }}
               color={useColorModeValue("#475569", "#94a3b8")}
+              flexShrink={0}
             >
-              <Icon as={Atom} boxSize={4} />
-              <Text>Community Edition</Text>
+              <Icon as={Atom} boxSize={{ base: 3.5, md: 4 }} />
+              <Text display={{ base: "none", md: "inline" }}>Community Edition</Text>
+              <Text display={{ base: "inline", md: "none" }}>CE</Text>
             </HStack>
           </HStack>
 
-          <Flex align="center" gap={{ base: 2, md: 3 }}>
+          <Flex align="center" gap={{ base: 1.5, md: 3 }}>
+            {/* 手机端汉堡菜单 */}
+            <MobileMenu 
+              textColor={textColor}
+              buttonHoverBg={buttonHoverBg}
+              buttonActiveBg={buttonActiveBg}
+            />
+            
+            {/* 桌面端按钮 */}
             <Button
               variant="ghost"
               size="sm"
@@ -97,6 +111,7 @@ export function Header() {
               gap={2}
               _hover={{ bg: buttonHoverBg }}
               _active={{ bg: buttonActiveBg }}
+              display={{ base: "none", sm: "flex" }}
             >
               <Download size={16} />
               下载
@@ -108,14 +123,16 @@ export function Header() {
               gap={2}
               _hover={{ bg: buttonHoverBg }}
               _active={{ bg: buttonActiveBg }}
+              display={{ base: "none", md: "flex" }}
             >
               <HelpCircle size={16} />
               帮助中心
             </Button>
+            
             <IconButton
               aria-label="切换主题"
               variant="ghost"
-              size="sm"
+              size={{ base: "xs", md: "sm" }}
               color={textColor}
               onClick={toggleColorMode}
               _hover={{ bg: buttonHoverBg, color: textColor }}
@@ -129,6 +146,99 @@ export function Header() {
       </Box>
       <HeaderAlerts />
     </Stack>
+  );
+}
+
+interface MobileMenuProps {
+  textColor: string;
+  buttonHoverBg: string;
+  buttonActiveBg: string;
+}
+
+function MobileMenu({ textColor, buttonHoverBg, buttonActiveBg }: MobileMenuProps) {
+  const menuBg = useColorModeValue("#ffffff", "#1a2332");
+  const menuBorder = useColorModeValue("#cbd5e0", "#334155");
+  const menuTextColor = useColorModeValue("#1e293b", "#e2e8f0");
+  const hoverBg = useColorModeValue("#f1f5f9", "rgba(71, 85, 105, 0.3)");
+
+  return (
+    <Menu.Root>
+      <Menu.Trigger asChild>
+        <IconButton
+          aria-label="菜单"
+          variant="ghost"
+          size="xs"
+          color={textColor}
+          display={{ base: "flex", sm: "none" }}
+          _hover={{ bg: buttonHoverBg, color: textColor }}
+          _active={{ bg: buttonActiveBg, color: textColor }}
+          css={{
+            "& svg": {
+              color: textColor,
+            },
+            "&:hover svg": {
+              color: textColor,
+            },
+            "&:active svg": {
+              color: textColor,
+            },
+            "&[data-state='open']": {
+              background: buttonActiveBg,
+              color: textColor,
+            },
+            "&[data-state='open'] svg": {
+              color: textColor,
+            },
+          }}
+        >
+          <MenuIcon size={18} />
+        </IconButton>
+      </Menu.Trigger>
+      <Portal>
+        <Menu.Positioner>
+          <Menu.Content
+            bg={menuBg}
+            borderWidth="2px"
+            borderColor={menuBorder}
+            minW="11rem"
+            maxW="calc(100vw - 32px)"
+            boxShadow="lg"
+            p="2"
+            rounded="lg"
+            color={menuTextColor}
+          >
+            <Menu.Item
+              value="download"
+              gap="2"
+              rounded="md"
+              px={3}
+              py={2}
+              color={menuTextColor}
+              _hover={{ bg: hoverBg }}
+              cursor="pointer"
+              transition="all 0.2s"
+            >
+              <Icon as={Download} boxSize={4} color={menuTextColor} />
+              <Text fontSize="sm" color={menuTextColor}>下载</Text>
+            </Menu.Item>
+            <Menu.Item
+              value="help"
+              gap="2"
+              rounded="md"
+              px={3}
+              py={2}
+              color={menuTextColor}
+              _hover={{ bg: hoverBg }}
+              cursor="pointer"
+              transition="all 0.2s"
+            >
+              <Icon as={HelpCircle} boxSize={4} color={menuTextColor} />
+              <Text fontSize="sm" color={menuTextColor}>帮助中心</Text>
+            </Menu.Item>
+          </Menu.Content>
+        </Menu.Positioner>
+      </Portal>
+    </Menu.Root>
   );
 }
 
@@ -156,7 +266,7 @@ function LanguageMenu() {
         <IconButton
           aria-label="选择语言"
           variant="ghost"
-          size="sm"
+          size={{ base: "xs", md: "sm" }}
           color={iconColor}
           _hover={{ bg: buttonHoverBg, color: iconColor }}
           _active={{ bg: buttonActiveBg, color: iconColor }}
@@ -188,7 +298,8 @@ function LanguageMenu() {
             bg={menuBg}
             borderWidth="2px"
             borderColor={menuBorder}
-            minW="15rem"
+            minW={{ base: "13rem", md: "15rem" }}
+            maxW={{ base: "calc(100vw - 32px)", md: "none" }}
             boxShadow="lg"
             p="2"
             rounded="lg"
@@ -202,19 +313,24 @@ function LanguageMenu() {
                 justifyContent="space-between"
                 gap="2"
                 rounded="md"
-                px={3}
-                py={2}
+                px={{ base: 2, md: 3 }}
+                py={{ base: 1.5, md: 2 }}
                 bg={language.code === option.code ? activeBg : "transparent"}
                 color={language.code === option.code ? activeColor : menuTextColor}
                 _hover={{ bg: hoverBg }}
                 cursor="pointer"
                 transition="all 0.2s"
               >
-                <Text fontSize="sm" flex="1" fontWeight={language.code === option.code ? "semibold" : "normal"}>
+                <Text 
+                  fontSize={{ base: "xs", md: "sm" }} 
+                  flex="1" 
+                  fontWeight={language.code === option.code ? "semibold" : "normal"}
+                  truncate
+                >
                   {option.label}
                 </Text>
                 {language.code === option.code ? (
-                  <Icon as={Check} boxSize={4} color={activeColor} />
+                  <Icon as={Check} boxSize={{ base: 3.5, md: 4 }} color={activeColor} flexShrink={0} />
                 ) : null}
               </Menu.Item>
             ))}
@@ -239,20 +355,25 @@ function HeaderAlerts() {
           status="info"
           variant="solid"
           colorPalette="blue"
-          alignItems="center"
-          py={2}
-          px={{ base: 2, md: 4 }}
+          alignItems="flex-start"
+          py={{ base: 2, md: 2 }}
+          px={{ base: 3, md: 4 }}
         >
-          <Alert.Indicator />
-          <Alert.Content>
-            <Alert.Description fontSize={{ base: "sm", md: "md" }}>
+          <Alert.Indicator mt={{ base: 0.5, md: 0 }} flexShrink={0} />
+          <Alert.Content flex="1" minW={0}>
+            <Alert.Description 
+              fontSize={{ base: "xs", sm: "sm", md: "md" }}
+              lineHeight={{ base: 1.5, md: 1.6 }}
+            >
               {infoText}
             </Alert.Description>
           </Alert.Content>
           <CloseButton
             variant="ghost"
-            size="sm"
+            size={{ base: "xs", md: "sm" }}
             onClick={() => setPromoVisible(false)}
+            flexShrink={0}
+            mt={{ base: -1, md: 0 }}
           />
         </Alert.Root>
       ) : null}
@@ -261,20 +382,25 @@ function HeaderAlerts() {
           status="warning"
           variant="solid"
           colorPalette="pink"
-          alignItems="center"
-          py={2}
-          px={{ base: 2, md: 4 }}
+          alignItems="flex-start"
+          py={{ base: 2, md: 2 }}
+          px={{ base: 3, md: 4 }}
         >
-          <Alert.Indicator />
-          <Alert.Content>
-            <Alert.Description fontSize={{ base: "sm", md: "md" }}>
+          <Alert.Indicator mt={{ base: 0.5, md: 0 }} flexShrink={0} />
+          <Alert.Content flex="1" minW={0}>
+            <Alert.Description 
+              fontSize={{ base: "xs", sm: "sm", md: "md" }}
+              lineHeight={{ base: 1.5, md: 1.6 }}
+            >
               {warningText}
             </Alert.Description>
           </Alert.Content>
           <CloseButton
             variant="ghost"
-            size="sm"
+            size={{ base: "xs", md: "sm" }}
             onClick={() => setNoticeVisible(false)}
+            flexShrink={0}
+            mt={{ base: -1, md: 0 }}
           />
         </Alert.Root>
       ) : null}
