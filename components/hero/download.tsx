@@ -68,7 +68,7 @@ export const Download = () => {
           <Text
             id={`${id}-download-title`}
             as="span"
-            fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
+            fontSize={{ base: "2xl", md: "4xl", lg: "5xl" }}
             fontWeight="extrabold"
             color={titleColor}
             lineHeight="0.75"
@@ -76,7 +76,7 @@ export const Download = () => {
             体验最新版每日手帐
           </Text>
 
-          <Text fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }} fontWeight="bold" color={subtitleColor} letterSpacing="tight">
+          <Text fontSize={{ base: "2xl", md: "4xl", lg: "5xl" }} fontWeight="bold" color={subtitleColor} letterSpacing="tight">
             {subtitleShown}
           </Text>
         </VStack>
