@@ -50,9 +50,6 @@ export function Footer() {
       borderTopWidth="1px"
       borderColor={borderColor}
       mt={{ base: 12, md: 16 }}
-      w="100vw"
-      maxW="100vw"
-      ml="calc(-50vw + 50%)"
       overflow="hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -79,7 +76,7 @@ export function Footer() {
         }}
       />
       
-      <Box position="relative" zIndex={1} px={{ base: 4, sm: 6, md: 8, lg: 12 }} py={{ base: 12, md: 16 }}>
+      <Box position="relative" zIndex={1} px={{ base: 4, md: 8 }} py={{ base: 12, md: 16 }}>
         <Stack gap={{ base: 8, md: 10 }}>
           {/* 导航链接 */}
           <Flex
@@ -193,7 +190,6 @@ function CrossBorderDialogLink({ textColor, linkHoverBg }: CrossBorderDialogLink
   const dialogBorder = useColorModeValue("rgba(203, 213, 225, 0.6)", "rgba(51, 65, 85, 0.7)");
   const dialogTitleColor = useColorModeValue("#0f172a", "#f1f5f9");
   const dialogText = useColorModeValue("#334155", "#cbd5e1");
-  const dialogMuted = useColorModeValue("#64748b", "#94a3b8");
 
   return (
     <Dialog.Root lazyMount>
@@ -213,6 +209,12 @@ function CrossBorderDialogLink({ textColor, linkHoverBg }: CrossBorderDialogLink
           textDecoration="none"
           _hover={{ bg: linkHoverBg }}
           _active={{ bg: linkHoverBg }}
+          css={{
+            '&[data-state="open"]': {
+              background: linkHoverBg,
+              color: textColor,
+            }
+          }}
         >
           <Icon as={Info} boxSize={3.5} opacity={0.7} />
           <Text>如果您不居住在中国大陆…</Text>
