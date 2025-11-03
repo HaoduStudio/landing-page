@@ -170,6 +170,13 @@ function LanguageMenu() {
             "&:active svg": {
               color: iconColor,
             },
+            "&[data-state='open']": {
+              background: buttonActiveBg,
+              color: iconColor,
+            },
+            "&[data-state='open'] svg": {
+              color: iconColor,
+            },
           }}
         >
           <Languages size={16} />
