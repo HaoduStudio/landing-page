@@ -82,10 +82,10 @@ export const Download = () => {
         </VStack>
         <VStack gap={2} textAlign="center" maxW="2xl">
           <Text fontSize={{ base: "sm", md: "md" }} color={mutedColor} lineHeight="relaxed">
-            专注要事，而不是写强制更新等问题作斗争。无论你是刚入门还是经验丰富的用户，
+            前面忘了中间忘了后面忘了
           </Text>
           <Text fontSize={{ base: "sm", md: "md" }} color={mutedColor} lineHeight="relaxed">
-            AstroBox 都可以帮助你简化流程，并在多个平台上使用。
+            总之就是请多多支持 DailyNotes 系列软件谢谢喵~
           </Text>
         </VStack>
         <HStack gap={8} justify="center" flexWrap="wrap" pt={4} fontSize={{ base: "sm", md: "md" }}>
