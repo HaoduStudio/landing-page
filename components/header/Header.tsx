@@ -118,8 +118,8 @@ export function Header() {
               size="sm"
               color={textColor}
               onClick={toggleColorMode}
-              _hover={{ bg: buttonHoverBg }}
-              _active={{ bg: buttonActiveBg }}
+              _hover={{ bg: buttonHoverBg, color: textColor }}
+              _active={{ bg: buttonActiveBg, color: textColor }}
             >
               {colorMode === "light" ? <Moon size={16} /> : <Sun size={16} />}
             </IconButton>
@@ -158,8 +158,19 @@ function LanguageMenu() {
           variant="ghost"
           size="sm"
           color={iconColor}
-          _hover={{ bg: buttonHoverBg }}
-          _active={{ bg: buttonActiveBg }}
+          _hover={{ bg: buttonHoverBg, color: iconColor }}
+          _active={{ bg: buttonActiveBg, color: iconColor }}
+          css={{
+            "& svg": {
+              color: iconColor,
+            },
+            "&:hover svg": {
+              color: iconColor,
+            },
+            "&:active svg": {
+              color: iconColor,
+            },
+          }}
         >
           <Languages size={16} />
         </IconButton>

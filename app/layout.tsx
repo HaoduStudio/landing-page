@@ -45,7 +45,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: colorModeInitializer }}
         />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <Providers>{children}</Providers>
       </body>
     </html>

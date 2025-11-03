@@ -1,3 +1,8 @@
-import { defaultSystem } from "@chakra-ui/react";
+import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
 
-export const system = defaultSystem;
+const config = defineConfig({
+  disableLayers: true,
+  globalCss: {},
+});
+
+export const system = createSystem(defaultConfig, config);
