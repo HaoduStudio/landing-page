@@ -6,7 +6,6 @@ import {
   Dialog,
   Flex,
   Icon,
-  Link,
   Portal,
   Stack,
   Text,
@@ -86,29 +85,36 @@ export function Footer() {
             fontSize={{ base: "sm", md: "md" }}
           >
             {NAV_LINKS.map((link) => (
-              <Link
+              <Button
                 key={link.label}
-                href={link.href}
-                target={link.isExternal ? "_blank" : undefined}
-                rel={link.isExternal ? "noopener noreferrer" : undefined}
+                asChild
+                variant="ghost"
+                height="auto"
+                px={2}
+                py={1}
+                fontSize={{ base: "sm", md: "md" }}
+                fontWeight="medium"
+                display="inline-flex"
                 alignItems="center"
                 gap={1.5}
                 color={textPrimary}
-                fontWeight="medium"
-                px={2}
-                py={1}
                 rounded="md"
                 textDecoration="none"
-                _hover={{
-                  bg: linkHoverBg,
-                }}
-                transition="all 0.2s"
+                _hover={{ bg: linkHoverBg }}
+                _active={{ bg: linkHoverBg }}
               >
-                <Text>{link.label}</Text>
-                {link.isExternal && (
-                  <Icon as={ExternalLink} boxSize={3.5} opacity={0.7} />
-                )}
-              </Link>
+                <a
+                  href={link.href}
+                  target={link.isExternal ? "_blank" : undefined}
+                  rel={link.isExternal ? "noopener noreferrer" : undefined}
+                  style={{ display: "inline-flex", alignItems: "center", gap: "0.375rem" }}
+                >
+                  <Text>{link.label}</Text>
+                  {link.isExternal && (
+                    <Icon as={ExternalLink} boxSize={3.5} opacity={0.7} />
+                  )}
+                </a>
+              </Button>
             ))}
             
             <CrossBorderDialogLink textColor={textPrimary} linkHoverBg={linkHoverBg} />
@@ -167,7 +173,18 @@ export function Footer() {
                 color={textTertiary}
                 flexWrap="wrap"
               >
-                <Text>滇ICP备2025059072号-3</Text>
+                <a
+                  href="https://beian.miit.gov.cn/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: "inherit",
+                    textDecoration: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  滇ICP备2025059072号-3
+                </a>
                 <Text display={{ base: "none", sm: "inline" }}>|</Text>
                 <Text>Build: {BUILD_ID}</Text>
               </Flex>
