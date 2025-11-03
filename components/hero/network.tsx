@@ -60,7 +60,7 @@ export function Network() {
                 alignItems="center"
                 _hover={{ textDecoration: "underline" }}
               >
-                Github Releases&nbsp;
+                Github Releases
                 <ExternalLink size={16} color={iconColor} />
               </Link>
                 {" "}页面下载最新版本的 DailyNotes CE，即可第一时间体验 Dailys Network 带来的
