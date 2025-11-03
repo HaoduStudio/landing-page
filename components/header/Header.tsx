@@ -355,8 +355,8 @@ function HeaderAlerts() {
           status="info"
           variant="solid"
           colorPalette="blue"
-          alignItems="flex-start"
-          py={{ base: 2, md: 2 }}
+          alignItems={{ base: "flex-start", md: "center" }}
+          py={2}
           px={{ base: 3, md: 4 }}
         >
           <Alert.Indicator mt={{ base: 0.5, md: 0 }} flexShrink={0} />
@@ -374,6 +374,7 @@ function HeaderAlerts() {
             onClick={() => setPromoVisible(false)}
             flexShrink={0}
             mt={{ base: -1, md: 0 }}
+            ml={{ base: 0, md: 2 }}
           />
         </Alert.Root>
       ) : null}
@@ -382,8 +383,8 @@ function HeaderAlerts() {
           status="warning"
           variant="solid"
           colorPalette="pink"
-          alignItems="flex-start"
-          py={{ base: 2, md: 2 }}
+          alignItems={{ base: "flex-start", md: "center" }}
+          py={2}
           px={{ base: 3, md: 4 }}
         >
           <Alert.Indicator mt={{ base: 0.5, md: 0 }} flexShrink={0} />
@@ -401,6 +402,7 @@ function HeaderAlerts() {
             onClick={() => setNoticeVisible(false)}
             flexShrink={0}
             mt={{ base: -1, md: 0 }}
+            ml={{ base: 0, md: 2 }}
           />
         </Alert.Root>
       ) : null}
