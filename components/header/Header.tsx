@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import Script from "next/script";
 import {
   Alert,
   Box,
@@ -79,13 +81,18 @@ export function Header() {
     >
       <Flex align="center" justify="space-between" gap={6}>
         <HStack gap={{ base: 2, md: 3 }}>
-          <Text 
-            fontSize={{ base: "md", sm: "lg", md: "xl" }} 
-            fontWeight="extrabold"
-            flexShrink={0}
-          >
-            DailyNotes
-          </Text>
+          <Link href="/">
+            <Text 
+              fontSize={{ base: "md", sm: "lg", md: "xl" }} 
+              fontWeight="extrabold"
+              flexShrink={0}
+              _hover={{ opacity: 0.8 }}
+              transition="opacity 0.2s"
+              cursor="pointer"
+            >
+              DailyNotes
+            </Text>
+          </Link>
           <HStack
             gap={1}
             fontSize={{ base: "xs", md: "sm" }}
@@ -98,7 +105,12 @@ export function Header() {
             <Text display={{ base: "inline", md: "none" }}>CE</Text>
           </HStack>
         </HStack>
-        <script defer src="https://analytics.nexaorion.tech/script.js" data-website-id="9c9b6236-2e4f-495c-9a8b-200c0216fece"></script>
+        {/* 使用 Next.js 的 Script 以确保服务端/客户端注入一致，避免 hydration mismatch */}
+        <Script
+          src="https://analytics.nexaorion.tech/script.js"
+          strategy="afterInteractive"
+          data-website-id="9c9b6236-2e4f-495c-9a8b-200c0216fece"
+        />
 
         <Flex align="center" gap={{ base: 1.5, md: 3 }}>
           {/* 手机端汉堡菜单 */}
@@ -109,18 +121,20 @@ export function Header() {
           />
           
           {/* 桌面端按钮 */}
-          <Button
-            variant="ghost"
-            size="sm"
-            color={textColor}
-            gap={2}
-            _hover={{ bg: buttonHoverBg }}
-            _active={{ bg: buttonActiveBg }}
-            display={{ base: "none", sm: "flex" }}
-          >
-            <Download size={16} />
-            下载
-          </Button>
+          <Link href="/download">
+            <Button
+              variant="ghost"
+              size="sm"
+              color={textColor}
+              gap={2}
+              _hover={{ bg: buttonHoverBg }}
+              _active={{ bg: buttonActiveBg }}
+              display={{ base: "none", sm: "flex" }}
+            >
+              <Download size={16} />
+              下载
+            </Button>
+          </Link>
           <Button
             variant="ghost"
             size="sm"
@@ -210,20 +224,22 @@ function MobileMenu({ textColor, buttonHoverBg, buttonActiveBg }: MobileMenuProp
             rounded="lg"
             color={menuTextColor}
           >
-            <Menu.Item
-              value="download"
-              gap="2"
-              rounded="md"
-              px={3}
-              py={2}
-              color={menuTextColor}
-              _hover={{ bg: hoverBg }}
-              cursor="pointer"
-              transition="all 0.2s"
-            >
-              <Icon as={Download} boxSize={4} color={menuTextColor} />
-              <Text fontSize="sm" color={menuTextColor}>下载</Text>
-            </Menu.Item>
+            <Link href="/download">
+              <Menu.Item
+                value="download"
+                gap="2"
+                rounded="md"
+                px={3}
+                py={2}
+                color={menuTextColor}
+                _hover={{ bg: hoverBg }}
+                cursor="pointer"
+                transition="all 0.2s"
+              >
+                <Icon as={Download} boxSize={4} color={menuTextColor} />
+                <Text fontSize="sm" color={menuTextColor}>下载</Text>
+              </Menu.Item>
+            </Link>
             <Menu.Item
               value="help"
               gap="2"
