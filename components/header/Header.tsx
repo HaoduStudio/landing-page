@@ -98,6 +98,7 @@ export function Header() {
             <Text display={{ base: "inline", md: "none" }}>CE</Text>
           </HStack>
         </HStack>
+        <script defer src="https://analytics.nexaorion.tech/script.js" data-website-id="9c9b6236-2e4f-495c-9a8b-200c0216fece"></script>
 
         <Flex align="center" gap={{ base: 1.5, md: 3 }}>
           {/* 手机端汉堡菜单 */}
