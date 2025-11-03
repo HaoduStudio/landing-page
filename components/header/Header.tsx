@@ -14,12 +14,14 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   useColorMode,
   useColorModeValue,
 } from "../ui/color-mode";
 import { Atom, Check, Download, HelpCircle, Languages, Menu as MenuIcon, Moon, Sun } from "lucide-react";
+import { shouldShowAlert, dismissAlert } from "../../lib/alert-visibility";
+import { useToaster } from "../ui/toaster-provider";
 
 interface LanguageOption {
   code: string;
@@ -55,97 +57,97 @@ export function Header() {
   );
 
   return (
-  <Stack gap={2} width="full">
-      <Box
-        as="header"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        bg={isHovered ? hoverBg : baseBg}
-        color={textColor}
-        borderBottomWidth="1px"
-        borderColor={borderColor}
-        transition="background 0.3s ease, backdrop-filter 0.3s ease"
-        backdropFilter={isHovered ? "blur(16px)" : "none"}
-        boxShadow={isHovered ? "sm" : "xs"}
-        px={{ base: 4, md: 8 }}
-        py={{ base: 3, md: 4 }}
-        position="sticky"
-        top={0}
-        zIndex={10}
-      >
-        <Flex align="center" justify="space-between" gap={6}>
-          <HStack gap={{ base: 2, md: 3 }}>
-            <Text 
-              fontSize={{ base: "md", sm: "lg", md: "xl" }} 
-              fontWeight="extrabold"
-              flexShrink={0}
-            >
-              DailyNotes
-            </Text>
-            <HStack
-              gap={1}
-              fontSize={{ base: "xs", md: "sm" }}
-              display={{ base: "none", sm: "flex" }}
-              color={useColorModeValue("#475569", "#94a3b8")}
-              flexShrink={0}
-            >
-              <Icon as={Atom} boxSize={{ base: 3.5, md: 4 }} />
-              <Text display={{ base: "none", md: "inline" }}>Community Edition</Text>
-              <Text display={{ base: "inline", md: "none" }}>CE</Text>
-            </HStack>
+    <Box
+      as="header"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      bg={isHovered ? hoverBg : baseBg}
+      color={textColor}
+      borderBottomWidth="1px"
+      borderColor={borderColor}
+      transition="background 0.3s ease, backdrop-filter 0.3s ease"
+      backdropFilter={isHovered ? "blur(16px)" : "none"}
+      boxShadow={isHovered ? "sm" : "xs"}
+      px={{ base: 4, md: 8 }}
+      py={{ base: 3, md: 4 }}
+      position="fixed"
+      top={0}
+      left={0}
+      right={0}
+      zIndex={100}
+      width="full"
+    >
+      <Flex align="center" justify="space-between" gap={6}>
+        <HStack gap={{ base: 2, md: 3 }}>
+          <Text 
+            fontSize={{ base: "md", sm: "lg", md: "xl" }} 
+            fontWeight="extrabold"
+            flexShrink={0}
+          >
+            DailyNotes
+          </Text>
+          <HStack
+            gap={1}
+            fontSize={{ base: "xs", md: "sm" }}
+            display={{ base: "none", sm: "flex" }}
+            color={useColorModeValue("#475569", "#94a3b8")}
+            flexShrink={0}
+          >
+            <Icon as={Atom} boxSize={{ base: 3.5, md: 4 }} />
+            <Text display={{ base: "none", md: "inline" }}>Community Edition</Text>
+            <Text display={{ base: "inline", md: "none" }}>CE</Text>
           </HStack>
+        </HStack>
 
-          <Flex align="center" gap={{ base: 1.5, md: 3 }}>
-            {/* 手机端汉堡菜单 */}
-            <MobileMenu 
-              textColor={textColor}
-              buttonHoverBg={buttonHoverBg}
-              buttonActiveBg={buttonActiveBg}
-            />
-            
-            {/* 桌面端按钮 */}
-            <Button
-              variant="ghost"
-              size="sm"
-              color={textColor}
-              gap={2}
-              _hover={{ bg: buttonHoverBg }}
-              _active={{ bg: buttonActiveBg }}
-              display={{ base: "none", sm: "flex" }}
-            >
-              <Download size={16} />
-              下载
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              color={textColor}
-              gap={2}
-              _hover={{ bg: buttonHoverBg }}
-              _active={{ bg: buttonActiveBg }}
-              display={{ base: "none", md: "flex" }}
-            >
-              <HelpCircle size={16} />
-              帮助中心
-            </Button>
-            
-            <IconButton
-              aria-label="切换主题"
-              variant="ghost"
-              size={{ base: "xs", md: "sm" }}
-              color={textColor}
-              onClick={toggleColorMode}
-              _hover={{ bg: buttonHoverBg, color: textColor }}
-              _active={{ bg: buttonActiveBg, color: textColor }}
-            >
-              {colorMode === "light" ? <Moon size={16} /> : <Sun size={16} />}
-            </IconButton>
-            <LanguageMenu />
-          </Flex>
+        <Flex align="center" gap={{ base: 1.5, md: 3 }}>
+          {/* 手机端汉堡菜单 */}
+          <MobileMenu 
+            textColor={textColor}
+            buttonHoverBg={buttonHoverBg}
+            buttonActiveBg={buttonActiveBg}
+          />
+          
+          {/* 桌面端按钮 */}
+          <Button
+            variant="ghost"
+            size="sm"
+            color={textColor}
+            gap={2}
+            _hover={{ bg: buttonHoverBg }}
+            _active={{ bg: buttonActiveBg }}
+            display={{ base: "none", sm: "flex" }}
+          >
+            <Download size={16} />
+            下载
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            color={textColor}
+            gap={2}
+            _hover={{ bg: buttonHoverBg }}
+            _active={{ bg: buttonActiveBg }}
+            display={{ base: "none", md: "flex" }}
+          >
+            <HelpCircle size={16} />
+            帮助中心
+          </Button>
+          
+          <IconButton
+            aria-label="切换主题"
+            variant="ghost"
+            size={{ base: "xs", md: "sm" }}
+            color={textColor}
+            onClick={toggleColorMode}
+            _hover={{ bg: buttonHoverBg, color: textColor }}
+            _active={{ bg: buttonActiveBg, color: textColor }}
+          >
+            {colorMode === "light" ? <Moon size={16} /> : <Sun size={16} />}
+          </IconButton>
+          <LanguageMenu />
         </Flex>
-      </Box>
-      <HeaderAlerts />
-    </Stack>
+      </Flex>
+    </Box>
   );
 }
 
@@ -344,68 +346,113 @@ function LanguageMenu() {
 function HeaderAlerts() {
   const [promoVisible, setPromoVisible] = useState(true);
   const [noticeVisible, setNoticeVisible] = useState(true);
+  const [isHydrated, setIsHydrated] = useState(false);
+  const toaster = useToaster();
 
   const infoText = "DailyNotes CE 是由 HaoduStudio 独立开发和运营的分支软件版本，与 小天才 或他们位于世界各地的分公司之间并无任何从属或关联。";
   const warningText = "DailyNotes CE 可能不兼容 每日手帐 现开发商 小天才 在中国大陆运营的V3版本的数据格式。DailyNotes CE 软件不为该V3版本提供任何功能。";
 
+  // 初始化：检查是否应该显示 Alert
+  useEffect(() => {
+    setIsHydrated(true);
+    setPromoVisible(shouldShowAlert("alert-promo"));
+    setNoticeVisible(shouldShowAlert("alert-notice"));
+  }, []);
+
+  // 处理关闭 Promo Alert
+  const handleClosePromo = () => {
+    setPromoVisible(false);
+    dismissAlert("alert-promo");
+    toaster.create({
+      title: "提示已关闭",
+      description: "此提示将在 7 天内不再显示。",
+      type: "success",
+      duration: 5000,
+    });
+  };
+
+  // 处理关闭 Notice Alert
+  const handleCloseNotice = () => {
+    setNoticeVisible(false);
+    dismissAlert("alert-notice");
+    toaster.create({
+      title: "警告已关闭",
+      description: "此警告将在 7 天内不再显示。",
+      type: "success",
+      duration: 5000,
+    });
+  };
+
+  if (!isHydrated) {
+    return null;
+  }
+
   return (
-    <Stack gap={2} px={{ base: 4, md: 8 }}>
-      {promoVisible ? (
-        <Alert.Root
-          status="info"
-          variant="solid"
-          colorPalette="blue"
-          alignItems={{ base: "flex-start", md: "center" }}
-          py={2}
-          px={{ base: 3, md: 4 }}
-        >
-          <Alert.Indicator mt={{ base: 0.5, md: 0 }} flexShrink={0} />
-          <Alert.Content flex="1" minW={0}>
-            <Alert.Description 
-              fontSize={{ base: "xs", sm: "sm", md: "md" }}
-              lineHeight={{ base: 1.5, md: 1.6 }}
-            >
-              {infoText}
-            </Alert.Description>
-          </Alert.Content>
-          <CloseButton
-            variant="ghost"
-            size={{ base: "xs", md: "sm" }}
-            onClick={() => setPromoVisible(false)}
-            flexShrink={0}
-            mt={{ base: -1, md: 0 }}
-            ml={{ base: 0, md: 2 }}
-          />
-        </Alert.Root>
-      ) : null}
-      {noticeVisible ? (
-        <Alert.Root
-          status="warning"
-          variant="solid"
-          colorPalette="pink"
-          alignItems={{ base: "flex-start", md: "center" }}
-          py={2}
-          px={{ base: 3, md: 4 }}
-        >
-          <Alert.Indicator mt={{ base: 0.5, md: 0 }} flexShrink={0} />
-          <Alert.Content flex="1" minW={0}>
-            <Alert.Description 
-              fontSize={{ base: "xs", sm: "sm", md: "md" }}
-              lineHeight={{ base: 1.5, md: 1.6 }}
-            >
-              {warningText}
-            </Alert.Description>
-          </Alert.Content>
-          <CloseButton
-            variant="ghost"
-            size={{ base: "xs", md: "sm" }}
-            onClick={() => setNoticeVisible(false)}
-            flexShrink={0}
-            mt={{ base: -1, md: 0 }}
-            ml={{ base: 0, md: 2 }}
-          />
-        </Alert.Root>
-      ) : null}
-    </Stack>
+    <>
+      <Stack 
+        gap={2} 
+        px={{ base: 4, md: 8 }}
+        pt={{ base: 16, md: 20 }}
+      >
+        {promoVisible ? (
+          <Alert.Root
+            status="info"
+            variant="solid"
+            colorPalette="blue"
+            alignItems={{ base: "flex-start", md: "center" }}
+            py={2}
+            px={{ base: 3, md: 4 }}
+          >
+            <Alert.Indicator mt={{ base: 0.5, md: 0 }} flexShrink={0} />
+            <Alert.Content flex="1" minW={0}>
+              <Alert.Description 
+                fontSize={{ base: "xs", sm: "sm", md: "md" }}
+                lineHeight={{ base: 1.5, md: 1.6 }}
+              >
+                {infoText}
+              </Alert.Description>
+            </Alert.Content>
+            <CloseButton
+              variant="ghost"
+              size={{ base: "xs", md: "sm" }}
+              onClick={handleClosePromo}
+              flexShrink={0}
+              mt={{ base: -1, md: 0 }}
+              ml={{ base: 0, md: 2 }}
+            />
+          </Alert.Root>
+        ) : null}
+        {noticeVisible ? (
+          <Alert.Root
+            status="warning"
+            variant="solid"
+            colorPalette="pink"
+            alignItems={{ base: "flex-start", md: "center" }}
+            py={2}
+            px={{ base: 3, md: 4 }}
+          >
+            <Alert.Indicator mt={{ base: 0.5, md: 0 }} flexShrink={0} />
+            <Alert.Content flex="1" minW={0}>
+              <Alert.Description 
+                fontSize={{ base: "xs", sm: "sm", md: "md" }}
+                lineHeight={{ base: 1.5, md: 1.6 }}
+              >
+                {warningText}
+              </Alert.Description>
+            </Alert.Content>
+            <CloseButton
+              variant="ghost"
+              size={{ base: "xs", md: "sm" }}
+              onClick={handleCloseNotice}
+              flexShrink={0}
+              mt={{ base: -1, md: 0 }}
+              ml={{ base: 0, md: 2 }}
+            />
+          </Alert.Root>
+        ) : null}
+      </Stack>
+    </>
   );
 }
+
+export { HeaderAlerts };
