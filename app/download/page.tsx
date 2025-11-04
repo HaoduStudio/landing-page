@@ -24,6 +24,7 @@ import {
 import { useToaster } from "../../components/ui/toaster-provider";
 import { ChevronRight, ShieldCheck, Watch, LockKeyhole, Info } from "lucide-react";
 import { Trans, useTranslation } from "react-i18next";
+import { getCachedConfig, cacheConfig } from "../../lib/download-cache";
 
 const SHA256_HASH = "loading";
 
@@ -90,9 +91,26 @@ export default function DownloadPage() {
     const fetchConfig = async () => {
       try {
         setIsLoading(true);
+
+        // 首先检查本地缓存
+        const cachedConfig = getCachedConfig();
+        if (cachedConfig) {
+          console.log("[DownloadPage] 使用缓存的配置");
+          setConfig(cachedConfig);
+          setError(null);
+          setIsLoading(false);
+          return;
+        }
+
+        // 缓存不存在或已过期，从API获取
+        console.log("[DownloadPage] 从API获取新的配置");
         const response = await fetch("/api/download-config");
         if (!response.ok) throw new Error("Failed to fetch config");
         const data: DownloadConfig = await response.json();
+        
+        // 缓存新获取的配置
+        cacheConfig(data);
+        
         setConfig(data);
         setError(null);
       } catch (err) {
