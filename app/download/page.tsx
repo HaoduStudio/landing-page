@@ -118,14 +118,45 @@ export default function DownloadPage() {
 
   // 提取 SHA256 值
   const getSHA256Value = () => {
-    if (!config?.download.file_sha256) return SHA256_HASH;
+    if (!config?.download.file_sha256) return null;
     return config.download.file_sha256.replace(/^sha256:/, "");
   };
 
   const handleCopyHash = useCallback(async () => {
+    const hashValue = getSHA256Value();
+    if (!hashValue) {
+      toaster.create({
+        title: "校验值未就绪",
+        description: "SHA256 校验值正在加载，请稍后再试。",
+        type: "warning",
+        duration: 3000,
+      });
+      return;
+    }
+
     try {
-      const hashValue = getSHA256Value();
-      await navigator.clipboard.writeText(hashValue);
+      // 优先尝试现代 Clipboard API
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(hashValue);
+      } else {
+        // 降级方案：使用传统的 execCommand 方法
+        const textArea = document.createElement("textarea");
+        textArea.value = hashValue;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-999999px";
+        textArea.style.top = "-999999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        const successful = document.execCommand('copy');
+        document.body.removeChild(textArea);
+        
+        if (!successful) {
+          throw new Error("execCommand failed");
+        }
+      }
+      
       toaster.create({
         title: "校验值已复制",
         description: "SHA256 校验值已复制到剪贴板。",
@@ -133,6 +164,7 @@ export default function DownloadPage() {
         duration: 4000,
       });
     } catch (error) {
+      console.error("Copy failed:", error);
       toaster.create({
         title: "复制失败",
         description: "请稍后再试，或手动复制校验值。",
@@ -140,7 +172,7 @@ export default function DownloadPage() {
         duration: 4000,
       });
     }
-  }, [toaster]);
+  }, [config, toaster]);
 
   const handleOpenDownloadDialog = useCallback(() => {
     if (!config?.download.allow) {
@@ -330,6 +362,7 @@ export default function DownloadPage() {
                             onClick={handleCopyHash}
                             color={shieldColor}
                             _hover={{ color: shieldHoverColor, bg: "transparent" }}
+                            disabled={isLoading || !config?.download.file_sha256 || config.download.file_sha256 === SHA256_HASH}
                           >
                             <ShieldCheck size={20} />
                           </IconButton>
@@ -345,8 +378,8 @@ export default function DownloadPage() {
                               maxW="300px"
                             >
                               <Text fontSize="xs" fontFamily="mono" wordBreak="break-all">
-                                {getSHA256Value()}
-                              </Text>
+                                    {getSHA256Value() ?? "加载中..."}
+                                  </Text>
                               <Tooltip.Arrow>
                                 <Tooltip.ArrowTip />
                               </Tooltip.Arrow>
