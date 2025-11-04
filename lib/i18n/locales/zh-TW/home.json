@@ -11,6 +11,34 @@
     "paragraph2": "只要前往<link/>頁面下載最新版 DailyNotes CE，即可第一時間體驗 Dailys Network 帶來的<highlight>全然不同的感受</highlight>。",
     "paragraph3": "<highlight>更加豐富多彩的手帳美化資源</highlight>，在 Dailys Network 裡<highlight>應有盡有</highlight>，讓你的手帳煥然一新，充滿個性與活力。"
   },
+  "comments": {
+    "items": [
+      {
+        "text": "應用評價正在絕讚招募中！快來和我拼機吧 (?)",
+        "highlights": ["絕讚招募中"],
+        "author": {
+          "name": "Mortis",
+          "title": "HaoduStudio成員，開源貢獻者"
+        }
+      },
+      {
+        "text": "DailyNotes 完全改變了我日常上學記錄生活的方式，手錶上也能體驗如此豐富的功能，真是令人驚喜。簡單易用，功能強大，完全免費，這就是我想要的手錶應用程式！",
+        "highlights": ["簡單易用，功能強大，完全免費"],
+        "author": {
+          "name": "K",
+          "title": "@Founder - 25"
+        }
+      },
+      {
+        "text": "好用的手錶軟體。體積小，功能齊全，介面簡單明瞭，不花裡胡哨。該有的功能都有。十分推薦。",
+        "highlights": ["介面簡單明瞭，不花裡胡哨"],
+        "author": {
+          "name": "BillW",
+          "title": "@Founder - AstroCore"
+        }
+      }
+    ]
+  },
   "downloadHero": {
     "title": "體驗最新版每日手帳",
     "subtitle": "就是現在！",

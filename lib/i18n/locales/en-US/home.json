@@ -11,6 +11,34 @@
     "paragraph2": "Grab the newest DailyNotes CE from the <link/> page and be among the first to experience the <highlight>completely different journey</highlight> Dailys Network delivers.",
     "paragraph3": "<highlight>A vibrant collection of customization resources</highlight> awaits you in Dailys Network—it has <highlight>everything you can imagine</highlight> to refresh your journal with personality and energy."
   },
+  "comments": {
+    "items": [
+      {
+        "text": "User reviews are now being actively recruited! Come and team up with me! (?)",
+        "highlights": ["actively recruited"],
+        "author": {
+          "name": "Mortis",
+          "title": "HaoduStudio Member, Open Source Contributor"
+        }
+      },
+      {
+        "text": "DailyNotes has completely transformed the way I record my daily school life. I never expected such rich features on a smartwatch. Easy to use, powerful, and completely free—this is exactly the smartwatch app I've been looking for!",
+        "highlights": ["Easy to use, powerful, and completely free"],
+        "author": {
+          "name": "K",
+          "title": "@Founder - 25"
+        }
+      },
+      {
+        "text": "A great smartwatch app. Lightweight, feature-complete, with a clean and straightforward interface, no unnecessary bloat. It has all the features you'd want. Highly recommended.",
+        "highlights": ["clean and straightforward interface"],
+        "author": {
+          "name": "BillW",
+          "title": "@Founder - AstroCore"
+        }
+      }
+    ]
+  },
   "downloadHero": {
     "title": "Try the latest DailyNotes",
     "subtitle": "This is the moment!",
