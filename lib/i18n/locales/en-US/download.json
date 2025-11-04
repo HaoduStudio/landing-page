@@ -1,0 +1,56 @@
+{
+  "page": {
+    "title": "Download DailyNotes",
+    "lead": "Download DailyNotes for your watch now and enjoy the most up-to-date journaling features with the best experience.",
+    "latestVersion": "Latest version",
+    "edition": "(Community Edition)",
+  "releasedOn": "Released on <highlight>{{date}}</highlight>.",
+    "releaseDateFallback": "November 2, 2025",
+    "alert": {
+      "title": "Download temporarily unavailable",
+      "description": "Downloads are temporarily unavailable due to force majeure."
+    }
+  },
+  "android": {
+    "title": "Android download",
+    "requirement": "Works with Android 5.1 (7.1.1 recommended) or later.",
+    "downloadButton": "Download APK package"
+  },
+  "security": {
+    "title": "Verification and safe download",
+    "body": "We strongly recommend downloading only from our official website. If your download appears corrupted or is flagged by antivirus software, please report it. Click <icon/> to copy the SHA256 checksum for verification."
+  },
+  "dialog": {
+    "title": "Download notice",
+    "body": "The site is currently undergoing regulatory filing, so domestic download options are temporarily unavailable.\n\nWe provide an overseas download (hosted in Singapore). Continue if you consent; otherwise, close this dialog.",
+    "close": "Close",
+    "continue": "Continue",
+    "countdown": "Continue ({{seconds}}s)"
+  },
+  "tooltips": {
+    "sha": "View SHA256 checksum",
+    "shaValueFallback": "Loading..."
+  },
+  "toasts": {
+    "hashPending": {
+      "title": "Checksum not ready",
+      "description": "The SHA256 checksum is still loading. Please try again shortly."
+    },
+    "hashCopied": {
+      "title": "Copied!",
+      "description": "The SHA256 checksum has been copied to your clipboard."
+    },
+    "hashCopyFailed": {
+      "title": "Copy failed",
+      "description": "Please try again later or copy the checksum manually."
+    },
+    "downloadUnavailable": {
+      "title": "Download unavailable",
+      "description": "Downloads are temporarily unavailable due to force majeure."
+    },
+    "downloadStarted": {
+      "title": "Download started",
+      "description": "The file is downloading in the background. Check your notifications for progress."
+    }
+  }
+}

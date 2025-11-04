@@ -16,7 +16,8 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   useColorMode,
   useColorModeValue,
@@ -24,21 +25,22 @@ import {
 import { Atom, Check, Download, HelpCircle, Languages, Menu as MenuIcon, Moon, Sun } from "lucide-react";
 import { shouldShowAlert, dismissAlert } from "../../lib/alert-visibility";
 import { useToaster } from "../ui/toaster-provider";
+import {
+  normalizeLanguage,
+  SUPPORTED_LANGUAGES,
+  type SupportedLanguage,
+} from "../../lib/i18n/settings";
 
 interface LanguageOption {
-  code: string;
+  code: SupportedLanguage;
   label: string;
 }
-
-const LANGUAGES: LanguageOption[] = [
-  { code: "zh-CN", label: "简体中文（中国）" },
-  { code: "zh-HK", label: "繁体中文（中國香港、澳門特別行政區）" },
-  { code: "en-US", label: "English (United States)" }
-];
 
 export function Header() {
   const [isHovered, setIsHovered] = useState(false);
   const { colorMode, toggleColorMode } = useColorMode();
+  const { t } = useTranslation("header");
+  const { t: tCommon } = useTranslation("common");
   const baseBg = useColorModeValue(
     "rgba(248, 250, 252, 0.96)",
     "rgba(11, 17, 32, 0.95)",
@@ -90,7 +92,7 @@ export function Header() {
               transition="opacity 0.2s"
               cursor="pointer"
             >
-              DailyNotes
+              {tCommon("brand")}
             </Text>
           </Link>
           <HStack
@@ -101,8 +103,8 @@ export function Header() {
             flexShrink={0}
           >
             <Icon as={Atom} boxSize={{ base: 3.5, md: 4 }} />
-            <Text display={{ base: "none", md: "inline" }}>Community Edition</Text>
-            <Text display={{ base: "inline", md: "none" }}>CE</Text>
+            <Text display={{ base: "none", md: "inline" }}>{tCommon("communityEdition.long")}</Text>
+            <Text display={{ base: "inline", md: "none" }}>{tCommon("communityEdition.short")}</Text>
           </HStack>
         </HStack>
         {/* 使用 Next.js 的 Script 以确保服务端/客户端注入一致，避免 hydration mismatch */}
@@ -132,7 +134,7 @@ export function Header() {
               display={{ base: "none", sm: "flex" }}
             >
               <Download size={16} />
-              下载
+              {t("nav.download")}
             </Button>
           </Link>
           <Button
@@ -145,11 +147,11 @@ export function Header() {
             display={{ base: "none", md: "flex" }}
           >
             <HelpCircle size={16} />
-            帮助中心
+            {t("nav.helpCenter")}
           </Button>
           
           <IconButton
-            aria-label="切换主题"
+            aria-label={t("nav.themeToggle")}
             variant="ghost"
             size={{ base: "xs", md: "sm" }}
             color={textColor}
@@ -173,6 +175,7 @@ interface MobileMenuProps {
 }
 
 function MobileMenu({ textColor, buttonHoverBg, buttonActiveBg }: MobileMenuProps) {
+  const { t } = useTranslation("header");
   const menuBg = useColorModeValue("#ffffff", "#1a2332");
   const menuBorder = useColorModeValue("#cbd5e0", "#334155");
   const menuTextColor = useColorModeValue("#1e293b", "#e2e8f0");
@@ -182,7 +185,7 @@ function MobileMenu({ textColor, buttonHoverBg, buttonActiveBg }: MobileMenuProp
     <Menu.Root>
       <Menu.Trigger asChild>
         <IconButton
-          aria-label="菜单"
+          aria-label={t("nav.menuAria")}
           variant="ghost"
           size="xs"
           color={textColor}
@@ -237,7 +240,7 @@ function MobileMenu({ textColor, buttonHoverBg, buttonActiveBg }: MobileMenuProp
                 transition="all 0.2s"
               >
                 <Icon as={Download} boxSize={4} color={menuTextColor} />
-                <Text fontSize="sm" color={menuTextColor}>下载</Text>
+                <Text fontSize="sm" color={menuTextColor}>{t("nav.download")}</Text>
               </Menu.Item>
             </Link>
             <Menu.Item
@@ -252,7 +255,7 @@ function MobileMenu({ textColor, buttonHoverBg, buttonActiveBg }: MobileMenuProp
               transition="all 0.2s"
             >
               <Icon as={HelpCircle} boxSize={4} color={menuTextColor} />
-              <Text fontSize="sm" color={menuTextColor}>帮助中心</Text>
+              <Text fontSize="sm" color={menuTextColor}>{t("nav.helpCenter")}</Text>
             </Menu.Item>
           </Menu.Content>
         </Menu.Positioner>
@@ -262,7 +265,18 @@ function MobileMenu({ textColor, buttonHoverBg, buttonActiveBg }: MobileMenuProp
 }
 
 function LanguageMenu() {
-  const [language, setLanguage] = useState<LanguageOption>(LANGUAGES[0]);
+  const { t, i18n } = useTranslation("header");
+  const [activeLanguage, setActiveLanguage] = useState<SupportedLanguage>(() =>
+    normalizeLanguage(i18n.resolvedLanguage ?? i18n.language),
+  );
+  const options: LanguageOption[] = useMemo(
+    () =>
+      SUPPORTED_LANGUAGES.map((code) => ({
+        code,
+        label: t(`language.options.${code}`),
+      })),
+    [t],
+  );
   const menuBg = useColorModeValue("#ffffff", "#1a2332");
   const menuBorder = useColorModeValue("#cbd5e0", "#334155");
   const menuTextColor = useColorModeValue("#1e293b", "#e2e8f0");
@@ -279,11 +293,31 @@ function LanguageMenu() {
     "rgba(56, 189, 248, 0.2)",
   );
 
+  useEffect(() => {
+    const handleLanguageChanged = (lng: string) => {
+      setActiveLanguage(normalizeLanguage(lng));
+    };
+
+    i18n.on("languageChanged", handleLanguageChanged);
+
+    return () => {
+      i18n.off("languageChanged", handleLanguageChanged);
+    };
+  }, [i18n]);
+
+  const handleSelect = useCallback(
+    (code: SupportedLanguage) => {
+      setActiveLanguage(code);
+      void i18n.changeLanguage(code);
+    },
+    [i18n],
+  );
+
   return (
     <Menu.Root>
       <Menu.Trigger asChild>
         <IconButton
-          aria-label="选择语言"
+          aria-label={t("language.aria")}
           variant="ghost"
           size={{ base: "xs", md: "sm" }}
           color={iconColor}
@@ -324,18 +358,18 @@ function LanguageMenu() {
             rounded="lg"
             color={menuTextColor}
           >
-            {LANGUAGES.map((option) => (
+              {options.map((option) => (
               <Menu.Item
                 key={option.code}
                 value={option.code}
-                onClick={() => setLanguage(option)}
+                  onClick={() => handleSelect(option.code)}
                 justifyContent="space-between"
                 gap="2"
                 rounded="md"
                 px={{ base: 2, md: 3 }}
                 py={{ base: 1.5, md: 2 }}
-                bg={language.code === option.code ? activeBg : "transparent"}
-                color={language.code === option.code ? activeColor : menuTextColor}
+                  bg={activeLanguage === option.code ? activeBg : "transparent"}
+                  color={activeLanguage === option.code ? activeColor : menuTextColor}
                 _hover={{ bg: hoverBg }}
                 cursor="pointer"
                 transition="all 0.2s"
@@ -343,12 +377,12 @@ function LanguageMenu() {
                 <Text 
                   fontSize={{ base: "xs", md: "sm" }} 
                   flex="1" 
-                  fontWeight={language.code === option.code ? "semibold" : "normal"}
+                    fontWeight={activeLanguage === option.code ? "semibold" : "normal"}
                   truncate
                 >
                   {option.label}
                 </Text>
-                {language.code === option.code ? (
+                  {activeLanguage === option.code ? (
                   <Icon as={Check} boxSize={{ base: 3.5, md: 4 }} color={activeColor} flexShrink={0} />
                 ) : null}
               </Menu.Item>
@@ -365,9 +399,7 @@ function HeaderAlerts() {
   const [noticeVisible, setNoticeVisible] = useState(true);
   const [isHydrated, setIsHydrated] = useState(false);
   const toaster = useToaster();
-
-  const infoText = "DailyNotes CE 是由 HaoduStudio 独立开发和运营的分支软件版本，与 小天才 或他们位于世界各地的分公司之间并无任何从属或关联。";
-  const warningText = "DailyNotes CE 可能不兼容 每日手帐 现开发商 小天才 在中国大陆运营的V3版本的数据格式。DailyNotes CE 软件不为该V3版本提供任何功能。";
+  const { t } = useTranslation("header");
 
   // 初始化：检查是否应该显示 Alert
   useEffect(() => {
@@ -381,8 +413,8 @@ function HeaderAlerts() {
     setPromoVisible(false);
     dismissAlert("alert-promo");
     toaster.create({
-      title: "提示已关闭",
-      description: "此提示将在 7 天内不再显示。",
+      title: t("alerts.promoDismissed.title"),
+      description: t("alerts.promoDismissed.description"),
       type: "success",
       duration: 5000,
     });
@@ -393,8 +425,8 @@ function HeaderAlerts() {
     setNoticeVisible(false);
     dismissAlert("alert-notice");
     toaster.create({
-      title: "警告已关闭",
-      description: "此警告将在 7 天内不再显示。",
+      title: t("alerts.noticeDismissed.title"),
+      description: t("alerts.noticeDismissed.description"),
       type: "success",
       duration: 5000,
     });
@@ -426,7 +458,7 @@ function HeaderAlerts() {
                 fontSize={{ base: "xs", sm: "sm", md: "md" }}
                 lineHeight={{ base: 1.5, md: 1.6 }}
               >
-                {infoText}
+                {t("alerts.info")}
               </Alert.Description>
             </Alert.Content>
             <CloseButton
@@ -454,7 +486,7 @@ function HeaderAlerts() {
                 fontSize={{ base: "xs", sm: "sm", md: "md" }}
                 lineHeight={{ base: 1.5, md: 1.6 }}
               >
-                {warningText}
+                {t("alerts.warning")}
               </Alert.Description>
             </Alert.Content>
             <CloseButton

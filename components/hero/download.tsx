@@ -4,9 +4,11 @@ import React, { useId, useEffect, useState } from "react";
 import { Box, Button, Text, HStack, VStack, Link, Icon } from "@chakra-ui/react";
 import { useColorModeValue } from "../ui/color-mode";
 import { ChevronRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export const Download = () => {
   const id = useId();
+  const { t } = useTranslation("home");
 
   const titleColor = useColorModeValue("gray.900", "whiteAlpha.900");
   const subtitleColor = useColorModeValue("blue.600", "blue.300");
@@ -14,9 +16,10 @@ export const Download = () => {
   const linkColor = useColorModeValue("gray.600", "whiteAlpha.700");
 
   // typewriter effect for subtitle: complete within 1 second
-  const subtitleFull = "就是现在！";
+  const subtitleFull = t("downloadHero.subtitle");
   const [subtitleShown, setSubtitleShown] = useState("");
   useEffect(() => {
+    setSubtitleShown("");
     let rafId: number | null = null;
     const start = performance.now();
     const duration = 1000; // ms
@@ -38,7 +41,7 @@ export const Download = () => {
     return () => {
       if (rafId) cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [subtitleFull]);
 
   return (
     <Box as="section" py={{ base: 16, md: 24 }} px={{ base: 4, md: 8 }} bg="transparent">
@@ -73,7 +76,7 @@ export const Download = () => {
             color={titleColor}
             lineHeight="0.75"
           >
-            体验最新版每日手帐
+            {t("downloadHero.title")}
           </Text>
 
           <Text fontSize={{ base: "2xl", md: "4xl", lg: "5xl" }} fontWeight="bold" color={subtitleColor} letterSpacing="tight">
@@ -82,20 +85,20 @@ export const Download = () => {
         </VStack>
         <VStack gap={2} textAlign="center" maxW="2xl">
           <Text fontSize={{ base: "sm", md: "md" }} color={mutedColor} lineHeight="relaxed">
-            前面忘了中间忘了后面忘了
+            {t("downloadHero.body1")}
           </Text>
           <Text fontSize={{ base: "sm", md: "md" }} color={mutedColor} lineHeight="relaxed">
-            总之就是请多多支持 DailyNotes 系列软件谢谢喵~
+            {t("downloadHero.body2")}
           </Text>
         </VStack>
         <HStack gap={8} justify="center" flexWrap="wrap" pt={4} fontSize={{ base: "sm", md: "md" }}>
           <Link href="/download" color={linkColor} _hover={{ color: titleColor, textDecoration: "none" }} display="flex" alignItems="center" gap={1}>
-            前往下载页
+            {t("downloadHero.ctaDownload")}
             <Icon as={ChevronRight} boxSize={4} />
           </Link>
 
           <Link href="https://qm.qq.com/cgi-bin/qm/qr?k=C1gK62vGLnhIAVuLNvD2uBMdMXNvyGmi&jump_from=webapi&authKey=qraIKYnhKTMzdhM7A8mmScS98NnGPkPMDy1gOtmcThcV8e5nwWTw26dbdY26+D6X" color={linkColor} _hover={{ color: titleColor, textDecoration: "none" }} display="flex" alignItems="center" gap={1}>
-            加入 QQ 群组
+            {t("downloadHero.ctaCommunity")}
             <Icon as={ChevronRight} boxSize={4} />
           </Link>
         </HStack>

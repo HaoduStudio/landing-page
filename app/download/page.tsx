@@ -14,7 +14,7 @@ import {
   Text,
   Tooltip,
 } from "@chakra-ui/react";
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Header } from "../../components/header/Header";
 import { Footer } from "../../components/footer/Footer";
 import {
@@ -23,6 +23,7 @@ import {
 } from "../../components/ui/color-mode";
 import { useToaster } from "../../components/ui/toaster-provider";
 import { ChevronRight, ShieldCheck, Watch, LockKeyhole, Info } from "lucide-react";
+import { Trans, useTranslation } from "react-i18next";
 
 const SHA256_HASH = "loading";
 
@@ -45,6 +46,7 @@ export default function DownloadPage() {
   const [config, setConfig] = useState<DownloadConfig | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { t, i18n } = useTranslation("download");
   
   const toaster = useToaster();
   const pageBg = useColorModeValue(
@@ -126,8 +128,8 @@ export default function DownloadPage() {
     const hashValue = getSHA256Value();
     if (!hashValue) {
       toaster.create({
-        title: "校验值未就绪",
-        description: "SHA256 校验值正在加载，请稍后再试。",
+        title: t("toasts.hashPending.title"),
+        description: t("toasts.hashPending.description"),
         type: "warning",
         duration: 3000,
       });
@@ -158,27 +160,27 @@ export default function DownloadPage() {
       }
       
       toaster.create({
-        title: "校验值已复制",
-        description: "SHA256 校验值已复制到剪贴板。",
+        title: t("toasts.hashCopied.title"),
+        description: t("toasts.hashCopied.description"),
         type: "success",
         duration: 4000,
       });
     } catch (error) {
       console.error("Copy failed:", error);
       toaster.create({
-        title: "复制失败",
-        description: "请稍后再试，或手动复制校验值。",
+        title: t("toasts.hashCopyFailed.title"),
+        description: t("toasts.hashCopyFailed.description"),
         type: "error",
         duration: 4000,
       });
     }
-  }, [config, toaster]);
+  }, [config, t, toaster]);
 
   const handleOpenDownloadDialog = useCallback(() => {
     if (!config?.download.allow) {
       toaster.create({
-        title: "下载不可用",
-        description: "由于不可抗力原因，暂时无法提供下载选项",
+        title: t("toasts.downloadUnavailable.title"),
+        description: t("toasts.downloadUnavailable.description"),
         type: "error",
         duration: 4000,
       });
@@ -187,7 +189,7 @@ export default function DownloadPage() {
     setIsDialogOpen(true);
     setCanProceed(false);
     setTimeLeft(5);
-  }, [config?.download.allow, toaster]);
+  }, [config?.download.allow, t, toaster]);
 
   // 倒计时逻辑
   useEffect(() => {
@@ -220,12 +222,28 @@ export default function DownloadPage() {
     
     setIsDialogOpen(false);
     toaster.create({
-      title: "下载已开始",
-      description: "文件将在后台下载，请在通知中心查看进度。",
+      title: t("toasts.downloadStarted.title"),
+      description: t("toasts.downloadStarted.description"),
       type: "success",
       duration: 4000,
     });
-  }, [config, toaster]);
+  }, [config, t, toaster]);
+
+  const releaseDateDisplay = useMemo(() => {
+    if (config?.date) {
+      try {
+        const formatter = new Intl.DateTimeFormat(i18n.language, {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+        return formatter.format(new Date(config.date));
+      } catch (error) {
+        console.error("Failed to format release date:", error);
+      }
+    }
+    return t("page.releaseDateFallback");
+  }, [config?.date, i18n.language, t]);
 
   return (
     <ClientOnly>
@@ -242,7 +260,7 @@ export default function DownloadPage() {
                   fontWeight="normal"
                   lineHeight={1.2}
                 >
-                  下载 DailyNotes
+                  {t("page.title")}
                 </Text>
               </Stack>
               
@@ -253,31 +271,35 @@ export default function DownloadPage() {
                   lineHeight={1.8}
                   maxW="3xl"
                 >
-                  现在就为您的手表下载 DailyNotes，体验最新最全的手帐功能和最棒的使用体验。
+                  {t("page.lead")}
                 </Text>
                 
                 <Stack gap={2}>
                   <Text fontSize={{ base: "sm", md: "base" }} color={secondaryText}>
-                    最新版本{" "}
+                    {t("page.latestVersion")}{" "}
                     <Text as="span" fontWeight="semibold" color={primaryText}>
                       {config?.version || "1.0.5"}
                     </Text>{" "}
                     <Text as="span" color={mutedText}>
-                      (Community Edition)
+                      {t("page.edition")}
                     </Text>
                   </Text>
                   <Text fontSize={{ base: "sm", md: "base" }} color={secondaryText}>
-                    发布于{" "}
-                    <Text as="span" fontWeight="normal" color={primaryText}>
-                      {config?.date 
-                        ? new Date(config.date).toLocaleDateString("zh-CN", {
-                            year: "numeric",
-                            month: "numeric",
-                            day: "numeric",
-                          })
-                        : "2025 年 11 月 2 日"}
-                    </Text>
-                    。
+                    <Trans
+                      i18nKey="page.releasedOn"
+                      t={t}
+                      values={{ date: releaseDateDisplay }}
+                      components={{
+                        highlight: (
+                          <Text
+                            key="release-date-highlight"
+                            as="span"
+                            fontWeight="normal"
+                            color={primaryText}
+                          />
+                        ),
+                      }}
+                    />
                   </Text>
                 </Stack>
               </Stack>
@@ -288,9 +310,9 @@ export default function DownloadPage() {
                 <Alert.Root status="error" variant="subtle" colorPalette="red">
                   <Alert.Indicator />
                   <Alert.Content>
-                    <Alert.Title>下载暂时不可用</Alert.Title>
+                    <Alert.Title>{t("page.alert.title")}</Alert.Title>
                     <Alert.Description>
-                      由于不可抗力原因，暂时无法提供下载选项
+                      {t("page.alert.description")}
                     </Alert.Description>
                   </Alert.Content>
                 </Alert.Root>
@@ -315,12 +337,12 @@ export default function DownloadPage() {
                       fontWeight="semibold"
                       color={primaryText}
                     >
-                      Android 下载
+                      {t("android.title")}
                     </Text>
                   </Stack>
 
                   <Text fontSize={{ base: "sm", md: "base" }} color={secondaryText} lineHeight={1.4}>
-                    适用于 Android 5.1（推荐 7.1.1）及以上版本。
+                    {t("android.requirement")}
                   </Text>
 
                   <Flex
@@ -346,7 +368,7 @@ export default function DownloadPage() {
                       _hover={{ bg: "transparent" }}
                       onClick={handleOpenDownloadDialog}
                     >
-                      下载 APK 安装包
+                      {t("android.downloadButton")}
                     </Button>
                     <Flex align="center" gap={2}>
                       <Tooltip.Root
@@ -356,7 +378,7 @@ export default function DownloadPage() {
                       >
                         <Tooltip.Trigger asChild>
                           <IconButton
-                            aria-label="查看 SHA256 校验值"
+                            aria-label={t("tooltips.sha")}
                             variant="ghost"
                             size="sm"
                             onClick={handleCopyHash}
@@ -378,8 +400,8 @@ export default function DownloadPage() {
                               maxW="300px"
                             >
                               <Text fontSize="xs" fontFamily="mono" wordBreak="break-all">
-                                    {getSHA256Value() ?? "加载中..."}
-                                  </Text>
+                                {getSHA256Value() ?? t("tooltips.shaValueFallback")}
+                              </Text>
                               <Tooltip.Arrow>
                                 <Tooltip.ArrowTip />
                               </Tooltip.Arrow>
@@ -412,7 +434,7 @@ export default function DownloadPage() {
                       fontWeight="semibold"
                       color={primaryText}
                     >
-                      验证和安全下载
+                      {t("security.title")}
                     </Text>
                   </Stack>
                   <Text
@@ -420,15 +442,21 @@ export default function DownloadPage() {
                     color={secondaryText}
                     lineHeight={1.8}
                   >
-                    我们建议您无论如何都只从我们的官方网站进行下载。如果您的下载内容似乎已损坏或被防病毒软件标记，请向我们报告。您可以点击{" "}
-                    <Icon
-                      as={ShieldCheck}
-                      display="inline"
-                      boxSize={4}
-                      verticalAlign="text-bottom"
-                      color={secondaryText}
-                    />{" "}
-                    来复制 SHA256 以进行校验。
+                    <Trans
+                      i18nKey="security.body"
+                      t={t}
+                      components={{
+                        icon: (
+                          <Icon
+                            as={ShieldCheck}
+                            display="inline"
+                            boxSize={4}
+                            verticalAlign="text-bottom"
+                            color={secondaryText}
+                          />
+                        ),
+                      }}
+                    />
                   </Text>
                 </Stack>
               </Box>
@@ -478,14 +506,14 @@ export default function DownloadPage() {
                   textAlign="left"
                   lineHeight={1.4}
                 >
-                  下载提示
+                  {t("dialog.title")}
                 </Dialog.Title>
               </Dialog.Header>
 
               <Dialog.Body px={{ base: 6, md: 8 }} py={0} pb={6}>
                 <Stack gap={6}>
                   <Text fontSize={{ base: "sm", md: "base" }} color={dialogTextColor} lineHeight={1.4} whiteSpace="pre-wrap">
-                    由于网站正处于备案期间，根据相关政策要求，暂时无法提供境内下载方式。{"\n\n"}因此我们提供了境外下载方式（存储在新加坡地区），若您同意下载，请继续；若不同意，请关闭弹窗。
+                    {t("dialog.body")}
                   </Text>
                 </Stack>
               </Dialog.Body>
@@ -506,7 +534,7 @@ export default function DownloadPage() {
                       flex="1"
                       minW={0}
                     >
-                      关闭
+                      {t("dialog.close")}
                     </Button>
                   </Dialog.ActionTrigger>
 
@@ -530,7 +558,9 @@ export default function DownloadPage() {
                     flex="1"
                     minW={0}
                   >
-                    继续{!canProceed && `（${timeLeft}s）`}
+                    {canProceed
+                      ? t("dialog.continue")
+                      : t("dialog.countdown", { seconds: timeLeft })}
                   </Button>
                 </Flex>
               </Dialog.Footer>

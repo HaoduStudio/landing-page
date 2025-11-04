@@ -1,0 +1,22 @@
+{
+  "intro": {
+    "title": "打破常规。",
+    "paragraph1": "DailyNotes 天生就与众不同。手表行业首创手帐类编辑软件，实现类富文本第一人。强大的手帐编辑器人人都能快速上手，除此之外，还有丰富的个性化资源，<highlight>完全免费使用</highlight>。",
+    "paragraph2": "手帐内不仅支持导入<highlight>图片、视频、录音</highlight>，还支持添加<highlight>自己喜爱的贴纸</highlight>。DailyNotes 还是首个支持<highlight>全局内容检索</highlight>和<highlight>日历检索</highlight>的记录类手表软件。"
+  },
+  "network": {
+    "badge": "CE Version Only",
+    "heading": "让我们认识一下新朋友！",
+    "paragraph1": "成为<highlight>DailyNotes CE 用户</highlight>即可体验<highlight>最新最热的 Dailys Network 功能</highlight>。",
+    "paragraph2": "仅需在<link/>页面下载最新版本的 DailyNotes CE，即可第一时间体验 Dailys Network 带来的<highlight>完全不同的体验</highlight>。",
+    "paragraph3": "<highlight>更加丰富多彩的手帧美化资源</highlight>，这些在 Dailys Network 中<highlight>应有尽有</highlight>，让你的手帐焕然一新，充满个性与活力。"
+  },
+  "downloadHero": {
+    "title": "体验最新版每日手帐",
+    "subtitle": "就是现在！",
+    "body1": "前面忘了中间忘了后面忘了",
+    "body2": "总之就是请多多支持 DailyNotes 系列软件谢谢喵~",
+    "ctaDownload": "前往下载页",
+    "ctaCommunity": "加入 QQ 群组"
+  }
+}

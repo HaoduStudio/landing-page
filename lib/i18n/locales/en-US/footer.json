@@ -1,0 +1,28 @@
+{
+  "nav": {
+    "privacyPolicy": "Privacy Policy",
+    "localizationPlatform": "Localization Platform",
+    "github": "Github"
+  },
+  "dialogs": {
+    "crossBorder": {
+      "trigger": "If you reside outside Mainland China…",
+      "title": "Cross-border data notice",
+      "body1": "When you use Dailys Network as an online service, DailyNotes may transfer the personal data necessary to provide and operate those services to servers located in Mainland China or other countries/regions for processing.",
+      "body2": "DailyNotes applies industry-standard encryption measures to protect any data in transit. Information stored locally on your device will not be transferred unless you explicitly move items such as your location data to cloud providers in Mainland China or other countries/regions.",
+      "body3": "If you do not agree to DailyNotes transferring this necessary data to servers in Mainland China or other countries/regions, you can continue using DailyNotes without connecting to Dailys Network. Features like online resources, weather backgrounds, and hitokoto quotes will be unavailable.",
+      "body4": "Refer to our privacy policy for details on which personal data may be transferred.",
+      "confirm": "Got it"
+    }
+  },
+  "brand": {
+    "tagline": "5 years of experience. Since 2021."
+  },
+  "legal": {
+    "trademarkNotice": " Okii is a registered trademark of Guangdong Xiaotiancai Technology Co., Ltd. (China Mainland)",
+    "associationNotice": "DailyNotes and this website may have an affiliation or association with Guangdong Xiaotiancai Technology Co., Ltd.",
+    "rightsReserved": "© 2021-2025 DailyNotes. All rights reserved.",
+    "build": "Build",
+    "registration": "滇ICP备2025059072号-3"
+  }
+}

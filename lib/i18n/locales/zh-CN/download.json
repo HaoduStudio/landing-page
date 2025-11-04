@@ -1,0 +1,56 @@
+{
+  "page": {
+    "title": "下载 DailyNotes",
+    "lead": "现在就为您的手表下载 DailyNotes，体验最新最全的手帐功能和最棒的使用体验。",
+    "latestVersion": "最新版本",
+  "edition": "（社区版）",
+  "releasedOn": "发布于 <highlight>{{date}}</highlight>。",
+    "releaseDateFallback": "2025 年 11 月 2 日",
+    "alert": {
+      "title": "下载暂时不可用",
+      "description": "由于不可抗力原因，暂时无法提供下载选项"
+    }
+  },
+  "android": {
+    "title": "Android 下载",
+    "requirement": "适用于 Android 5.1（推荐 7.1.1）及以上版本。",
+    "downloadButton": "下载 APK 安装包"
+  },
+  "security": {
+    "title": "验证和安全下载",
+    "body": "我们建议您无论如何都只从我们的官方网站进行下载。如果您的下载内容似乎已损坏或被防病毒软件标记，请向我们报告。您可以点击<icon/>来复制 SHA256 以进行校验。"
+  },
+  "dialog": {
+    "title": "下载提示",
+    "body": "由于网站正处于备案期间，根据相关政策要求，暂时无法提供境内下载方式。\n\n因此我们提供了境外下载方式（存储在新加坡地区），若您同意下载，请继续；若不同意，请关闭弹窗。",
+    "close": "关闭",
+    "continue": "继续",
+    "countdown": "继续（{{seconds}}s）"
+  },
+  "tooltips": {
+    "sha": "查看 SHA256 校验值",
+    "shaValueFallback": "加载中..."
+  },
+  "toasts": {
+    "hashPending": {
+      "title": "校验值未就绪",
+      "description": "SHA256 校验值正在加载，请稍后再试。"
+    },
+    "hashCopied": {
+      "title": "已复制",
+      "description": "SHA256 校验值已复制到剪贴板。"
+    },
+    "hashCopyFailed": {
+      "title": "复制失败",
+      "description": "请稍后再试，或手动复制校验值。"
+    },
+    "downloadUnavailable": {
+      "title": "下载不可用",
+      "description": "由于不可抗力原因，暂时无法提供下载选项。"
+    },
+    "downloadStarted": {
+      "title": "下载已开始",
+      "description": "文件将在后台下载，请在通知中心查看进度。"
+    }
+  }
+}

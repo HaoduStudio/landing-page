@@ -1,0 +1,22 @@
+{
+  "intro": {
+    "title": "打破常規。",
+    "paragraph1": "DailyNotes 天生就與眾不同。手錶產業首創手帳類編輯軟體，實現類富文本第一人。強大的手帳編輯器人人都能快速上手，除此之外，還有豐富的個人化資源，<highlight>完全免費使用</highlight>。",
+    "paragraph2": "手帳內不僅支援匯入<highlight>圖片、影片、錄音</highlight>，還支援新增<highlight>自己喜愛的貼紙</highlight>。DailyNotes 也是首個支援<highlight>全域內容檢索</highlight>與<highlight>行事曆檢索</highlight>的紀錄類手錶軟體。"
+  },
+  "network": {
+    "badge": "CE Version Only",
+    "heading": "讓我們認識一下新朋友！",
+    "paragraph1": "成為<highlight>DailyNotes CE 使用者</highlight>即可體驗<highlight>最新最熱門的 Dailys Network 功能</highlight>。",
+    "paragraph2": "只要前往<link/>頁面下載最新版 DailyNotes CE，即可第一時間體驗 Dailys Network 帶來的<highlight>全然不同的感受</highlight>。",
+    "paragraph3": "<highlight>更加豐富多彩的手帳美化資源</highlight>，在 Dailys Network 裡<highlight>應有盡有</highlight>，讓你的手帳煥然一新，充滿個性與活力。"
+  },
+  "downloadHero": {
+    "title": "體驗最新版每日手帳",
+    "subtitle": "就是現在！",
+    "body1": "前面忘了中間忘了後面忘了",
+    "body2": "總之就是請多多支持 DailyNotes 系列軟體謝謝喵～",
+    "ctaDownload": "前往下載頁",
+    "ctaCommunity": "加入 QQ 群組"
+  }
+}

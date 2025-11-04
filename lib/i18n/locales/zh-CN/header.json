@@ -1,0 +1,28 @@
+{
+  "nav": {
+    "download": "下载",
+    "helpCenter": "帮助中心",
+    "menuAria": "菜单",
+    "themeToggle": "切换主题"
+  },
+  "language": {
+    "aria": "选择语言",
+    "options": {
+      "zh-CN": "简体中文（中国大陆）",
+      "zh-TW": "繁體中文（臺灣）",
+      "en-US": "English (United States)"
+    }
+  },
+  "alerts": {
+    "info": "DailyNotes CE 是由 HaoduStudio 独立开发和运营的分支软件版本，与 小天才 或他们位于世界各地的分公司之间并无任何从属或关联。",
+    "warning": "DailyNotes CE 可能不兼容 每日手帐 现开发商 小天才 在中国大陆运营的 V3 版本的数据格式。DailyNotes CE 软件不为该 V3 版本提供任何功能。",
+    "promoDismissed": {
+      "title": "提示已关闭",
+      "description": "此提示将在 7 天内不再显示。"
+    },
+    "noticeDismissed": {
+      "title": "警告已关闭",
+      "description": "此警告将在 7 天内不再显示。"
+    }
+  }
+}

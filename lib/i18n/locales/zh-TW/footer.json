@@ -1,0 +1,28 @@
+{
+  "nav": {
+    "privacyPolicy": "隱私權政策",
+    "localizationPlatform": "在地化平台",
+    "github": "Github"
+  },
+  "dialogs": {
+    "crossBorder": {
+      "trigger": "如果您不居住在中國大陸…",
+      "title": "資料跨境傳輸須知",
+      "body1": "當您使用 Dailys Network 線上即服務時，DailyNotes 可能會將為向您提供與運行這些服務所必要的個人資料傳輸至中國大陸或其他國家（或地區）的伺服器進行處理。",
+      "body2": "對於傳輸的資料，DailyNotes 將採取符合業界標準的加密措施保護您的資料安全。儲存在您裝置本地的資料不會被傳輸，除非您主動將您的位置等資訊儲存至中國大陸或其他國家（或地區）的雲端服務提供者。",
+      "body3": "若您不同意 DailyNotes 將這些必要資料傳輸至中國大陸或其他國家（或地區）的伺服器處理，您可在未主動連線至 Dailys Network 的情況下使用 DailyNotes，但部分功能如 線上資源、天氣背景、一言 等將無法使用。",
+      "body4": "如需瞭解哪些個人資料將被傳輸，請參閱我們的隱私權政策。",
+      "confirm": "好"
+    }
+  },
+  "brand": {
+    "tagline": "5 years of experience. Since 2021."
+  },
+  "legal": {
+    "trademarkNotice": "「小天才」為廣東小天才科技有限公司（中国大陆）旗下的註冊商標。",
+    "associationNotice": "DailyNotes 與本網站可能與廣東小天才科技有限公司之間存在從屬或關聯關係。",
+    "rightsReserved": "© 2021-2025 DailyNotes 保留所有權利。",
+    "build": "Build",
+    "registration": "滇ICP备2025059072号-3"
+  }
+}

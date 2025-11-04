@@ -1,0 +1,28 @@
+{
+  "nav": {
+    "download": "Download",
+    "helpCenter": "Help Center",
+    "menuAria": "Menu",
+    "themeToggle": "Toggle theme"
+  },
+  "language": {
+    "aria": "Select language",
+    "options": {
+      "zh-CN": "简体中文（中国大陆）",
+      "zh-TW": "繁體中文（臺灣）",
+      "en-US": "English (United States)"
+    }
+  },
+  "alerts": {
+    "info": "DailyNotes CE is a branch of the software that is independently developed and operated by HaoduStudio. It has no affiliation with Xiaotiancai or any of its subsidiaries worldwide.",
+    "warning": "DailyNotes CE may not be compatible with the data format used by the V3 version of Dailynotes currently operated by Xiaotiancai in Mainland China. DailyNotes CE does not provide functionality for that V3 release.",
+    "promoDismissed": {
+      "title": "Notice dismissed",
+      "description": "This notice will stay hidden for 7 days."
+    },
+    "noticeDismissed": {
+      "title": "Warning dismissed",
+      "description": "This warning will stay hidden for 7 days."
+    }
+  }
+}

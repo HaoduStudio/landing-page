@@ -1,0 +1,56 @@
+{
+  "page": {
+    "title": "下載 DailyNotes",
+    "lead": "現在就為您的手錶下載 DailyNotes，體驗最新最完整的手帳功能與最棒的使用體驗。",
+    "latestVersion": "最新版本",
+  "edition": "（社群版）",
+  "releasedOn": "發佈於 <highlight>{{date}}</highlight>。",
+    "releaseDateFallback": "2025 年 11 月 2 日",
+    "alert": {
+      "title": "下載暫時不可用",
+      "description": "由於不可抗力因素，暫時無法提供下載選項"
+    }
+  },
+  "android": {
+    "title": "Android 下載",
+    "requirement": "適用於 Android 5.1（建議 7.1.1）及以上版本。",
+    "downloadButton": "下載 APK 安裝包"
+  },
+  "security": {
+    "title": "驗證與安全下載",
+    "body": "我們建議您務必僅從官方網站下載。如果您的下載內容似乎已損壞或被防毒軟體標記，請向我們回報。您可以點擊<icon/>來複製 SHA256 進行校驗。"
+  },
+  "dialog": {
+    "title": "下載提示",
+    "body": "由於網站正處於備案期間，依據相關政策要求，暫時無法提供境內下載方式。\n\n因此我們提供了境外下載方式（儲存在新加坡地區），若您同意下載，請繼續；若不同意，請關閉彈窗。",
+    "close": "關閉",
+    "continue": "繼續",
+    "countdown": "繼續（{{seconds}} 秒）"
+  },
+  "tooltips": {
+    "sha": "查看 SHA256 驗證值",
+    "shaValueFallback": "載入中..."
+  },
+  "toasts": {
+    "hashPending": {
+      "title": "驗證值尚未就緒",
+      "description": "SHA256 驗證值正在載入，請稍後再試。"
+    },
+    "hashCopied": {
+      "title": "已複製",
+      "description": "SHA256 驗證值已複製到剪貼簿。"
+    },
+    "hashCopyFailed": {
+      "title": "複製失敗",
+      "description": "請稍後再試，或手動複製驗證值。"
+    },
+    "downloadUnavailable": {
+      "title": "下載不可用",
+      "description": "由於不可抗力因素，暫時無法提供下載選項。"
+    },
+    "downloadStarted": {
+      "title": "下載已開始",
+      "description": "檔案將在背景下載，請於通知中心查看進度。"
+    }
+  }
+}
