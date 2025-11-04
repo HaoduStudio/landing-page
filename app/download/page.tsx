@@ -86,12 +86,11 @@ export default function DownloadPage() {
   const cancelButtonHoverBg = useColorModeValue("rgba(218, 218, 218, 0.95)", "rgba(51, 65, 85, 0.7)");
   const cancelButtonTextColor = useColorModeValue("#0f172a", "#e2e8f0");
 
-  // 获取配置信息
   useEffect(() => {
     const fetchConfig = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch("https://cdn.lightxi.com/cloudreve/uploads/2025/11/04/Bp1TtPUi_download.json");
+        const response = await fetch("/api/download-config");
         if (!response.ok) throw new Error("Failed to fetch config");
         const data: DownloadConfig = await response.json();
         setConfig(data);
@@ -212,6 +211,7 @@ export default function DownloadPage() {
   const handleProceedDownload = useCallback(() => {
     if (!config) return;
     
+    // APK文件直接从config中的endpoint下载（不需要签名）
     const downloadUrl = `${config.download.endpoint}${config.download.file_name}`;
     const link = document.createElement("a");
     link.href = downloadUrl;

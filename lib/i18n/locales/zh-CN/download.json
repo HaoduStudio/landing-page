@@ -51,6 +51,10 @@
     "downloadStarted": {
       "title": "下载已开始",
       "description": "文件将在后台下载，请在通知中心查看进度。"
+    },
+    "downloadFailed": {
+      "title": "下载失败",
+      "description": "无法生成下载链接，请稍后再试。"
     }
   }
 }

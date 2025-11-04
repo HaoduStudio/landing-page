@@ -51,6 +51,10 @@
     "downloadStarted": {
       "title": "Download started",
       "description": "The file is downloading in the background. Check your notifications for progress."
+    },
+    "downloadFailed": {
+      "title": "Download failed",
+      "description": "Unable to generate download link. Please try again later."
     }
   }
 }
