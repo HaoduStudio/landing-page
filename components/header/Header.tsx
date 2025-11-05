@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Script from "next/script";
+import Image from "next/image";
 import {
   Alert,
   Box,
@@ -84,16 +85,27 @@ export function Header() {
       <Flex align="center" justify="space-between" gap={6}>
         <HStack gap={{ base: 2, md: 3 }}>
           <Link href="/">
-            <Text 
-              fontSize={{ base: "md", sm: "lg", md: "xl" }} 
-              fontWeight="extrabold"
-              flexShrink={0}
-              _hover={{ opacity: 0.8 }}
-              transition="opacity 0.2s"
-              cursor="pointer"
-            >
-              {tCommon("brand")}
-            </Text>
+            <Flex align="center" gap={{ base: 1.5, md: 2 }} _hover={{ opacity: 0.8 }} transition="opacity 0.2s" cursor="pointer">
+              <Image
+                src="/images/LOGO.png"
+                alt="DailyNotes Logo"
+                width={32}
+                height={32}
+                priority
+                style={{ 
+                  height: "auto",
+                  width: "auto",
+                  maxWidth: "2rem"
+                }}
+              />
+              <Text 
+                fontSize={{ base: "md", sm: "lg", md: "xl" }} 
+                fontWeight="extrabold"
+                flexShrink={0}
+              >
+                {tCommon("brand")}
+              </Text>
+            </Flex>
           </Link>
           <HStack
             gap={1}

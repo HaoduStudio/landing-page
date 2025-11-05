@@ -10,6 +10,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import Image from "next/image";
 import { ExternalLink, Info } from "lucide-react";
 import { useColorModeValue } from "../ui/color-mode";
 import { useState } from "react";
@@ -131,16 +132,28 @@ export function Footer() {
               align="flex-start"
             >
               <Stack gap={2.5} flex={1}>
-                <Flex align="center" gap={3}>
-                  <Stack gap={0.5}>
-                    <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight="black" color={textPrimary} lineHeight={1.2}>
-                      {tCommon("brand")}
-                    </Text>
-                    <Text fontSize={{ base: "xs", md: "sm" }} color={textSecondary} fontWeight="medium">
-                      {t("brand.tagline")}
-                    </Text>
-                  </Stack>
-                </Flex>
+            <Flex align="center" gap={3}>
+              <Image
+                src="/images/LOGO.png"
+                alt="DailyNotes Logo"
+                width={40}
+                height={40}
+                priority
+                style={{ 
+                  height: "auto",
+                  width: "auto",
+                  maxWidth: "2.5rem"
+                }}
+              />
+              <Stack gap={0.5}>
+                <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight="black" color={textPrimary} lineHeight={1.2}>
+                  {tCommon("brand")}
+                </Text>
+                <Text fontSize={{ base: "xs", md: "sm" }} color={textSecondary} fontWeight="medium">
+                  {t("brand.tagline")}
+                </Text>
+              </Stack>
+            </Flex>
               </Stack>
 
               {/* 版权声明 */}
