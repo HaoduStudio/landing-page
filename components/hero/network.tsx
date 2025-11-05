@@ -44,7 +44,10 @@ export function Network() {
               <Trans
                 i18nKey="network.paragraph1"
                 t={t}
-                components={{ highlight: <Text as="span" fontWeight="semibold" color={highlight} /> }}
+                components={{
+                  highlight: <Text as="span" fontWeight="semibold" color={highlight} />,
+                  highlight1: <Text as="span" fontWeight="semibold" color={highlight} />,
+                }}
               />
             </Text>
             <Text lineHeight={1.6}>
@@ -76,7 +79,10 @@ export function Network() {
               <Trans
                 i18nKey="network.paragraph3"
                 t={t}
-                components={{ highlight: <Text as="span" fontWeight="semibold" color={highlight} /> }}
+                components={{
+                  highlight: <Text as="span" fontWeight="semibold" color={highlight} />,
+                  highlight1: <Text as="span" fontWeight="semibold" color={highlight} />,
+                }}
               />
             </Text>
 
