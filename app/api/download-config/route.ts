@@ -6,7 +6,7 @@
 import { NextResponse } from 'next/server';
 import { generateQiniuSignedUrl } from '../../../lib/qiniu-auth';
 
-const CONFIG_URL = 'https://policy.nexaorion.cn/dailynotes/download.json';
+const CONFIG_URL = 'https://cdn.lightxi.com/cloudreve/uploads/2025/11/04/Bp1TtPUi_download.json';
 
 export async function GET() {
   try {
