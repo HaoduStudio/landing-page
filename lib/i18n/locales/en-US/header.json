@@ -1,6 +1,7 @@
 {
   "nav": {
     "download": "Download",
+    "dashboard": "Dashboard",
     "helpCenter": "Help Center",
     "menuAria": "Menu",
     "themeToggle": "Toggle theme"

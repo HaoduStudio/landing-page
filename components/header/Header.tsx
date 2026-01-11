@@ -23,7 +23,7 @@ import {
   useColorMode,
   useColorModeValue,
 } from "../ui/color-mode";
-import { Atom, Check, Download, HelpCircle, Languages, Menu as MenuIcon, Moon, Sun } from "lucide-react";
+import { Atom, Check, Download, HelpCircle, Languages, Menu as MenuIcon, Moon, Sun, LayoutDashboard } from "lucide-react";
 import { shouldShowAlert, dismissAlert } from "../../lib/alert-visibility";
 import { useToaster } from "../ui/toaster-provider";
 import {
@@ -149,6 +149,20 @@ export function Header() {
               {t("nav.download")}
             </Button>
           </Link>
+          <Link href="https://my.dailys.zone" target="_blank" rel="noopener noreferrer">
+            <Button
+              variant="ghost"
+              size="sm"
+              color={textColor}
+              gap={2}
+              _hover={{ bg: buttonHoverBg }}
+              _active={{ bg: buttonActiveBg }}
+              display={{ base: "none", md: "flex" }}
+            >
+              <LayoutDashboard size={16} />
+              {t("nav.dashboard")}
+            </Button>
+          </Link>
           <Button
             variant="ghost"
             size="sm"
@@ -239,9 +253,9 @@ function MobileMenu({ textColor, buttonHoverBg, buttonActiveBg }: MobileMenuProp
             rounded="lg"
             color={menuTextColor}
           >
-            <Link href="/download">
+            <Link href="https://my.dailys.zone" target="_blank" rel="noopener noreferrer">
               <Menu.Item
-                value="download"
+                value="dashboard"
                 gap="2"
                 rounded="md"
                 px={3}
@@ -251,8 +265,8 @@ function MobileMenu({ textColor, buttonHoverBg, buttonActiveBg }: MobileMenuProp
                 cursor="pointer"
                 transition="all 0.2s"
               >
-                <Icon as={Download} boxSize={4} color={menuTextColor} />
-                <Text fontSize="sm" color={menuTextColor}>{t("nav.download")}</Text>
+                <Icon as={LayoutDashboard} boxSize={4} color={menuTextColor} />
+                <Text fontSize="sm" color={menuTextColor}>{t("nav.dashboard")}</Text>
               </Menu.Item>
             </Link>
             <Menu.Item
