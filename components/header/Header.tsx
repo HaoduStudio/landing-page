@@ -253,6 +253,22 @@ function MobileMenu({ textColor, buttonHoverBg, buttonActiveBg }: MobileMenuProp
             rounded="lg"
             color={menuTextColor}
           >
+            <Link href="/download">
+              <Menu.Item
+                value="download"
+                gap="2"
+                rounded="md"
+                px={3}
+                py={2}
+                color={menuTextColor}
+                _hover={{ bg: hoverBg }}
+                cursor="pointer"
+                transition="all 0.2s"
+              >
+                <Icon as={Download} boxSize={4} color={menuTextColor} />
+                <Text fontSize="sm" color={menuTextColor}>{t("nav.download")}</Text>
+              </Menu.Item>
+            </Link>
             <Link href="https://my.dailys.zone" target="_blank" rel="noopener noreferrer">
               <Menu.Item
                 value="dashboard"
